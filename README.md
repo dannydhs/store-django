@@ -1,0 +1,2 @@
+STORE-DJANGO
+django==2.2.3
