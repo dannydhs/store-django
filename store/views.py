@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import redirect
 
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
+from django.contrib import messages
 
 
 def index(request):
@@ -28,9 +29,10 @@ def login_view(request):
         user = authenticate(username=username, password=password)
         if user:
             login(request, user)
-            print('Usuario autenticado')
+            messages.success(request, 'Bienvenido {}'.format(user.username))
+            return redirect('index')
         else:
-            print('Usuario no autenticado')
+            messages.error(request, 'Usuario o contraseña no validos')
 
     return render(request, 'users/login.html', {
         
