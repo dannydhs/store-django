@@ -6,6 +6,8 @@ from django.contrib.auth import login
 from django.contrib.auth import logout
 from django.contrib import messages
 
+from django.contrib.auth.models import User
+
 from .forms import RegisterForm
 
 def index(request):
@@ -53,6 +55,12 @@ def register(request):
         username = form.cleaned_data.get('username') # diccionario
         email = form.cleaned_data.get('email')
         password = form.cleaned_data.get('password')
+
+        user = User.objects.create_user(username, email, password)
+        if user:
+            login(request, user)
+            messages.success(request, 'Usuario creado exitosamente')
+            return redirect('index')
 
     return render(request, 'users/register.html', {
         'form': form
