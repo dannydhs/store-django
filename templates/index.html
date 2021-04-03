@@ -11,11 +11,8 @@
         <!-- Este es un comentario HTML -->
         {# Este es un comentario de django #}
 
-        {% if product.stock %}
-          <span class="text-success">Disponible</span>
-        {% else %}
-          <span class="text-danger">No disponible</span>
-        {% endif %}
+        <span class="text-success">{{ product.price }}</span>
+       
       </li>
     {% endfor %}
   </ul>
