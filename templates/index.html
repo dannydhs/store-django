@@ -2,20 +2,14 @@
 
 {% block content %}
 <div class="col">
-  <h1>{{ message }}</h1>
-  <ul class="list-group">
-    {% for product in products %}
-      <li class="list-group-item">
-        {{ product.title }}
-
-        <!-- Este es un comentario HTML -->
-        {# Este es un comentario de django #}
-
-        <span class="text-success">{{ product.price }}</span>
-       
-      </li>
+  <h4 class="text-center">{{ message }}</h4>
+  <div class="row">
+    {% for object in products %}
+      <div class="col-3 mt-5">
+        {% include 'products/snippets/product.html' with product=object %}
+      </div>
     {% endfor %}
-  </ul>
+  </div>
   {# <img src="{% static 'image/mochila.png' %}" alt="imagen mochila"> #}
 </div>
 {% endblock %}
