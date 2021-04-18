@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 
+from django.db.models import Q
+
 from .models import Product
 
 class ProductListView(ListView):
@@ -29,8 +31,9 @@ class ProductSearchListView(ListView):
     template_name = 'products/search.html'
 
     def get_queryset(self):
-        # SELECT * FROM products WHERE title LIKE '%valor%'
-        return Product.objects.filter(title__icontains=self.query())
+        # SELECT * FROM products WHERE title LIKE '%valor%' == icontains
+        filters = Q(title__icontains=self.query()) | Q(category__title__icontains=self.query())
+        return Product.objects.filter(filters)
 
     def query(self):
         return self.request.GET.get('q')
