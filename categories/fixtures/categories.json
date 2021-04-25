@@ -1,0 +1,22 @@
+[
+{
+    "model": "categories.category",
+    "pk": 1,
+    "fields": {
+        "title": "Ropa",
+        "description": "Esta categoria es para contenido ropa",
+        "created_at": "2021-04-18T14:54:17.496Z",
+        "products": []
+    }
+},
+{
+    "model": "categories.category",
+    "pk": 2,
+    "fields": {
+        "title": "Juguetes",
+        "description": "Esta categoria es para juegos.",
+        "created_at": "2021-04-18T14:54:57.171Z",
+        "products": []
+    }
+}
+]
