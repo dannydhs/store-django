@@ -4,12 +4,15 @@ from .models import Cart
 
 def cart(request):
     user = request.user if request.user.is_authenticated else None
-    cart_id = request.session.get('cart_id')
+    cart_id = request.session.get('cart_id') # None
+    cart = Cart.objects.filter(cart_id=cart_id).first() # [] -> None
 
-    if cart_id:
-        cart = Cart.objects.get(cart_id=cart_id)
-    else:
+    if cart is None:
         cart = Cart.objects.create(user=user)
+
+    if user and cart.user is None:
+        cart.user = user
+        cart.save()
 
     request.session['cart_id'] = cart.cart_id
 
