@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 
 from products.models import Product
 
@@ -15,7 +15,8 @@ def cart(request):
 
 def add(request):
     cart = get_or_create_cart(request)
-    product = Product.objects.get(pk=request.POST.get('product_id'))
+    # product = Product.objects.get(pk=request.POST.get('product_id')) # Se puede utilizar ambos
+    product = get_object_or_404(Product, pk=request.POST.get('product_id'))
 
     cart.products.add(product)
 
@@ -26,7 +27,8 @@ def add(request):
 
 def remove(request):
     cart = get_or_create_cart(request)
-    product = Product.objects.get(pk=request.POST.get('product_id'))
+    # product = Product.objects.get(pk=request.POST.get('product_id'))
+    product = get_object_or_404(Product, pk=request.POST.get('product_id'))
 
     cart.products.remove(product)
 
