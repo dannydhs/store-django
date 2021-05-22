@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
 from products.models import Product
 
@@ -22,3 +22,12 @@ def add(request):
     return render(request, 'carts/add.html', {
         'product': product
     })
+
+
+def remove(request):
+    cart = get_or_create_cart(request)
+    product = Product.objects.get(pk=request.POST.get('product_id'))
+
+    cart.products.remove(product)
+
+    return redirect('carts:cart')
